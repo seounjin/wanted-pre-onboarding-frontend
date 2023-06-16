@@ -1,23 +1,42 @@
+import { ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Input, InputBox, Label, Title } from './AuthForm.style'
 
-const AuthForm = () => {
-  return (
-    <Form>
-        <Title>회원가입</Title>
-
-        <InputBox>
-            <Label>이메일</Label>
-            <Input data-testid="email-input"/>
-        </InputBox>
-        
-        <InputBox>
-            <Label>비밀번호</Label>
-            <Input data-testid="password-input"/>
-        </InputBox>
-
-        <Button data-testid="signup-button">회원가입</Button>
-    </Form>
-  )
+interface AuthFormProps {
+    title: string;
+    buttonTestId: string;
+    buttonName: string;
+    isDisabledButton: boolean;
+    onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+    onInputChange:(event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default AuthForm;
+const AuthForm = ({
+    title,
+    buttonTestId,
+    buttonName,
+    isDisabledButton,
+    onSubmit,
+    onInputChange,
+  }: AuthFormProps) => {
+
+    return (
+      <Form onSubmit={onSubmit}>
+        <Title>{title}</Title>
+  
+        <InputBox>
+          <Label>이메일</Label>
+          <Input id='email' data-testid="email-input" onChange={onInputChange} />
+        </InputBox>
+  
+        <InputBox>
+          <Label>비밀번호</Label>
+          <Input id='password' data-testid="password-input" onChange={onInputChange} />
+        </InputBox>
+  
+        <Button data-testid={buttonTestId} disabled={isDisabledButton}>{buttonName}</Button>
+      </Form>
+    );
+  };
+  
+  export default AuthForm;
+  

@@ -50,5 +50,9 @@ export const Button = styled.button`
     &:hover {
         opacity: 0.7;
     }
+    &:disabled {
+        cursor: auto;
+        opacity: 1.0;
+      }
 `;
 
