@@ -1,10 +1,15 @@
-import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SigninPage from "./pages/SigninPage";
+import SignupPage from './pages/SignupPage';
 
 function App() {
   return (
-    <div className="App">
-      시작이요
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/signup" element={<SignupPage/>} />
+        <Route path="/signin" element={<SigninPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
