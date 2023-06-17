@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { Input, Label, Span, Wrapper } from './TodoItem.style'
+import { Button, ButtonWrapper, Input, Label, Span, Wrapper } from './TodoItem.style'
 
 export interface Todo {
   id: number;
@@ -23,6 +23,10 @@ const TodoItem = ({ data, index, handleCheckboxChange }: TodoItemProps) => {
             <Input name={String(index)} type="checkbox" checked={isCompleted} onChange={handleCheckboxChange}/>
             <Span>{todo}</Span>
         </Label>
+        <ButtonWrapper>
+          <Button data-testid="modify-button">수정</Button>
+          <Button data-testid="delete-button">삭제</Button>
+        </ButtonWrapper>
     </Wrapper>
   )
 }
