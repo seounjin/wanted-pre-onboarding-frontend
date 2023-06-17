@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { Input, Label, Span, Wrapper } from './TodoItem.style'
 
 export interface Todo {
@@ -9,15 +10,17 @@ export interface Todo {
 
 
 interface TodoItemProps {
- data: Todo
+ data: Todo;
+ index: number;
+ handleCheckboxChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TodoItem = ({ data }: TodoItemProps) => {
-  const { todo, isCompleted, userId } = data;
+const TodoItem = ({ data, index, handleCheckboxChange }: TodoItemProps) => {
+  const { todo, isCompleted } = data;
   return (
     <Wrapper>
         <Label>
-            <Input type="checkbox" />
+            <Input name={String(index)} type="checkbox" checked={isCompleted} onChange={handleCheckboxChange}/>
             <Span>{todo}</Span>
         </Label>
     </Wrapper>

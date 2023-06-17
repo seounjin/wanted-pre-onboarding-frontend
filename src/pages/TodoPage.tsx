@@ -8,7 +8,7 @@ import TodoLayout from "../Layout/TodoLayout/TodoLayout";
 
 const TodoPage = () => {
   const [todoItems, setTodoItems] = useState<Todo[]>([]);
-  const [createTodoItem, setCreateTodoItem] = useState('');
+  const [createTodoItem, setCreateTodoItem] = useState<string>('');
   
   const fetchTodoItems = async() => {
     const res = await getTodoItems();
@@ -33,13 +33,30 @@ const TodoPage = () => {
     }
   }
 
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+    const index = Number(event.target.name);
+    
+    const newTodoItems = [...todoItems];
+    newTodoItems[index] = { ...todoItems[index], isCompleted: checked };
+    
+    setTodoItems(newTodoItems);
+  }
+
 
   return (
     <TodoLayout>
       <CreateTodo onChange={createTodoInputChange} onClick={createTodoButtonClick}/>
       <TodoList>
         {todoItems &&
-          todoItems.map((data) => <TodoItem key={data.id} data={data}/>)}
+          todoItems.map((data, index) => (
+            <TodoItem
+              key={data.id}
+              index={index}
+              data={data}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+          ))}
       </TodoList>
     </TodoLayout>
   );
