@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { Wrapper } from "./MainLayout.style"
+import { Wrapper } from "./AuthLayout.style"
 
 
 interface MainLayoutProps {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { singin } from "../api/authFetcher";
 import AuthForm from "../components/AuthForm/AuthForm"
 import useAuthForm from "../hooks/useAuthForm";
-import MainLayout from "../Layout/MainLayout/MainLayout"
+import AuthLayout from "../Layout/AuthLayout/AuthLayout"
 import { setAccessToken } from "../utils/setAccessToken";
 import { validateEmailAndPassword } from "../utils/validateEmailAndPassword";
 
@@ -23,7 +23,7 @@ const SigninPage = () => {
     }
 
     return (
-        <MainLayout>
+        <AuthLayout>
           <AuthForm
             title={'로그인'}
             buttonTestId={'signin-button'}
@@ -32,7 +32,7 @@ const SigninPage = () => {
             onInputChange={handleChange}
             isDisabledButton={validateEmailAndPassword(email, password)}
           />
-        </MainLayout>
+        </AuthLayout>
     );  
 }
 

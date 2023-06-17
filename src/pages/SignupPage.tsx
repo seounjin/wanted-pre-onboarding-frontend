@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { signup } from "../api/authFetcher";
 import AuthForm from "../components/AuthForm/AuthForm"
 import useAuthForm from "../hooks/useAuthForm";
-import MainLayout from "../Layout/MainLayout/MainLayout"
+import AuthLayout from "../Layout/AuthLayout/AuthLayout"
 import { validateEmailAndPassword } from "../utils/validateEmailAndPassword";
 
 const SignupPage = () => {
@@ -20,7 +20,7 @@ const SignupPage = () => {
     }
 
     return (
-        <MainLayout>
+        <AuthLayout>
           <AuthForm
             title={'회원가입'}
             buttonTestId={'signup-button'}
@@ -29,7 +29,7 @@ const SignupPage = () => {
             onInputChange={handleChange}
             isDisabledButton={validateEmailAndPassword(email, password)}
           />
-        </MainLayout>
+        </AuthLayout>
     );  
 }
 
