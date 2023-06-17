@@ -8,6 +8,10 @@ export const getTodoItems = async () => {
     return await axiosClient.get('/todos');
 };
 
-export const createTodoItems = async (todoItem: string) => {
+export const createTodoItem = async (todoItem: string) => {
     return await axiosClient.post('/todos', { todo: todoItem });
+};
+
+export const deleteTodoItem = async (id: number) => {
+    return await axiosClient.delete(`/todos/${id}`);
 };

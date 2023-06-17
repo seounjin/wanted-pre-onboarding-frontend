@@ -13,9 +13,10 @@ interface TodoItemProps {
  data: Todo;
  index: number;
  handleCheckboxChange: (event: ChangeEvent<HTMLInputElement>) => void;
+ deleteTodoItemButonClick: (index: number) => void;
 }
 
-const TodoItem = ({ data, index, handleCheckboxChange }: TodoItemProps) => {
+const TodoItem = ({ data, index, handleCheckboxChange, deleteTodoItemButonClick }: TodoItemProps) => {
   const { todo, isCompleted } = data;
   return (
     <Wrapper>
@@ -25,7 +26,7 @@ const TodoItem = ({ data, index, handleCheckboxChange }: TodoItemProps) => {
         </Label>
         <ButtonWrapper>
           <Button data-testid="modify-button">수정</Button>
-          <Button data-testid="delete-button">삭제</Button>
+          <Button data-testid="delete-button" onClick={() => deleteTodoItemButonClick(index)}>삭제</Button>
         </ButtonWrapper>
     </Wrapper>
   )
