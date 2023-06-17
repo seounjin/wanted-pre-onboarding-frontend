@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { createTodoItem, deleteTodoItem, getTodoItems } from "../api/todoFetcher";
+import { createTodoItem, getTodoItems } from "../api/todoFetcher";
 import CreateTodo from "../components/Todo/CreateTodo/CreateTodo";
 import TodoItem, { Todo } from "../components/Todo/TodoItem/TodoItem"
 import TodoList from "../components/Todo/TodoList/TodoList";
@@ -29,27 +29,11 @@ const TodoPage = () => {
   const createTodoItemButtonClick = async() => {
     const res = await createTodoItem(newTodoValue);
     if (res.status === 201){
-      setTodoItems([...todoItems, res.data])
+      setTodoItems([...todoItems, res.data]);
+      setNewTodoValue('');
     }
   }
 
-  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const checked = event.target.checked;
-    const index = Number(event.target.name);
-    
-    const newTodoItems = [...todoItems];
-    newTodoItems[index] = { ...todoItems[index], isCompleted: checked };
-    
-    setTodoItems(newTodoItems);
-  }
-
-  const deleteTodoItemButonClick = async(indexToDelete: number) => {
-    const todoItemId = todoItems[indexToDelete].id;
-    const res = await deleteTodoItem(todoItemId);
-    if (res.status === 204) {
-      setTodoItems(todoItems.filter((_, index) => index !== indexToDelete));
-    }
-  }
 
 
   return (
@@ -63,8 +47,6 @@ const TodoPage = () => {
               index={index}
               data={data}
               setTodoItems={setTodoItems}
-              handleCheckboxChange={handleCheckboxChange}
-              deleteTodoItemButonClick={deleteTodoItemButonClick}
             />
           ))}
       </TodoList>

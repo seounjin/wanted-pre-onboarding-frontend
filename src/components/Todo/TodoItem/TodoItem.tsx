@@ -1,5 +1,6 @@
+import React from 'react';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import { updateTodoItem } from '../../../api/todoFetcher';
+import { deleteTodoItem, updateTodoItem } from '../../../api/todoFetcher';
 import { Button, ButtonWrapper, CheckBox, Input, Label, Span, Wrapper } from './TodoItem.style'
 
 export interface Todo {
@@ -14,26 +15,24 @@ interface TodoItemProps {
  data: Todo;
  index: number;
  setTodoItems: Dispatch<SetStateAction<Todo[]>>;
- handleCheckboxChange: (event: ChangeEvent<HTMLInputElement>) => void;
- deleteTodoItemButonClick: (index: number) => void;
 }
 
 const TodoItem = ({
   data,
   index,
   setTodoItems,
-  handleCheckboxChange,
-  deleteTodoItemButonClick,
 }: TodoItemProps) => {
   const { id, todo, isCompleted } = data;
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [modifyTodoItem, setModifyTodoItem] = useState<string>('');
+  const [modifyTodoItem, setModifyTodoItem] = useState<string>(todo);
 
   const handleEdit = () => {
     setIsEdit(!isEdit);
   };
 
-  const submitUpdatedItem = async(indexToUpdate: number) => {
+
+  const submitUpdatedItem = async() => {
+    const indexToUpdate = index;
     const res = await updateTodoItem(id, modifyTodoItem, isCompleted);
     if(res.status === 200) {
       
@@ -46,11 +45,36 @@ const TodoItem = ({
       setIsEdit(!isEdit);
     }
   }
+  
 
   const handleModifyInputChange = (evnet: ChangeEvent<HTMLInputElement>) => {
     setModifyTodoItem(evnet.target.value);
   }
 
+  const handleCheckboxChange = async(event: ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+    const indexToUpdate = index;
+    const res = await updateTodoItem(id, todo, checked);
+    if(res.status === 200) {
+      
+      setTodoItems( prevTodoItems => prevTodoItems.map((data, index) => {
+        if (indexToUpdate === index) {
+          return res.data;
+        }
+        return data;
+      }));
+    }
+  }
+
+  const deleteTodoItemButonClick = async() => {
+    const res = await deleteTodoItem(id);
+    const indexToDelete = index;
+    if (res.status === 204) {
+      setTodoItems( prevTodoItems => prevTodoItems.filter((_, index) => index !== indexToDelete));
+    }
+  }
+
+  
 
   return (
     <Wrapper>
@@ -61,7 +85,7 @@ const TodoItem = ({
           checked={isCompleted}
           onChange={handleCheckboxChange}
         />
-        {!isEdit ? <Span>{todo}</Span> : <Input data-testid="modify-input" onChange={handleModifyInputChange}/>}
+        {!isEdit ? <Span>{todo}</Span> : <Input data-testid="modify-input" defaultValue={todo} onChange={handleModifyInputChange}/>}
       </Label>
       <ButtonWrapper>
         {!isEdit ? (
@@ -71,14 +95,14 @@ const TodoItem = ({
             </Button>
             <Button
               data-testid="delete-button"
-              onClick={() => deleteTodoItemButonClick(index)}
+              onClick={deleteTodoItemButonClick}
             >
               삭제
             </Button>
           </>
         ) : (
           <>
-            <Button data-testid="submit-button" onClick={()=>submitUpdatedItem(index)}>제출</Button>
+            <Button data-testid="submit-button" onClick={submitUpdatedItem}>제출</Button>
             <Button data-testid="cancel-button" onClick={handleEdit}>
               취소
             </Button>
@@ -89,4 +113,4 @@ const TodoItem = ({
   );
 };
 
-export default TodoItem;
+export default React.memo(TodoItem);
