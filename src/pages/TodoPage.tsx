@@ -38,7 +38,7 @@ const TodoPage = () => {
 
   return (
     <TodoLayout>
-      <CreateTodo onChange={createTodoInputChange} onClick={createTodoItemButtonClick}/>
+      <CreateTodo newTodoValue={newTodoValue} onChange={createTodoInputChange} onClick={createTodoItemButtonClick}/>
       <TodoList>
         {todoItems &&
           todoItems.map((data, index) => (
