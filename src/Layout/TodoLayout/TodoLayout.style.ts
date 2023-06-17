@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
     align-items: center;
 `
 export const BoxShadow = styled.div`
-    width: 400px;
+    width: 800px;
     min-height: 400px;
     background-color: #9ED5C5;
     border-radius: 4px;

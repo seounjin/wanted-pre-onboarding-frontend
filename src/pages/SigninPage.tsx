@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { axiosClient } from "../api/axiosClient";
 import fetcher from "../api/fetcher";
 import AuthForm from "../components/AuthForm/AuthForm"
 import useAuthForm from "../hooks/useAuthForm";
@@ -18,7 +19,7 @@ const SigninPage = () => {
         const res = await fetcher('post', '/auth/signin', { email, password });
         if (res?.status === 200) {
             setAccessToken('accessToken', res.data.access_token);
-            navigate('/todo')
+            navigate('/todo', { replace: true })
         }
     }
 
