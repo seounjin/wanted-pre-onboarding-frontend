@@ -25,12 +25,12 @@ const AuthForm = ({
   
         <InputBox>
           <Label>이메일</Label>
-          <Input id='email' data-testid="email-input" onChange={onInputChange} />
+          <Input id='email' type='text' data-testid="email-input" onChange={onInputChange} />
         </InputBox>
   
         <InputBox>
           <Label>비밀번호</Label>
-          <Input id='password' data-testid="password-input" onChange={onInputChange} />
+          <Input id='password' type='password' data-testid="password-input" onChange={onInputChange} />
         </InputBox>
   
         <Button data-testid={buttonTestId} disabled={isDisabledButton}>{buttonName}</Button>
