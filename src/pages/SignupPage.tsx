@@ -1,6 +1,6 @@
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import fetcher from "../api/fetcher";
+import { signup } from "../api/authFetcher";
 import AuthForm from "../components/AuthForm/AuthForm"
 import useAuthForm from "../hooks/useAuthForm";
 import MainLayout from "../Layout/MainLayout/MainLayout"
@@ -13,7 +13,7 @@ const SignupPage = () => {
 
     const handleSubmit = async(event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const res = await fetcher('post', '/auth/signup', { email, password });
+        const res = await signup(email, password);
         if (res?.status === 201) {
             navigate('/signin')
         }

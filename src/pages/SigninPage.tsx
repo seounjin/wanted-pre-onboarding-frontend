@@ -1,7 +1,6 @@
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { axiosClient } from "../api/axiosClient";
-import fetcher from "../api/fetcher";
+import { singin } from "../api/authFetcher";
 import AuthForm from "../components/AuthForm/AuthForm"
 import useAuthForm from "../hooks/useAuthForm";
 import MainLayout from "../Layout/MainLayout/MainLayout"
@@ -16,7 +15,7 @@ const SigninPage = () => {
     const handleSubmit = async(event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
-        const res = await fetcher('post', '/auth/signin', { email, password });
+        const res = await singin(email, password);
         if (res?.status === 200) {
             setAccessToken('accessToken', res.data.access_token);
             navigate('/todo', { replace: true })
