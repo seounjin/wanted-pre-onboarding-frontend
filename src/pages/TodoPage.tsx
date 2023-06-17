@@ -62,6 +62,7 @@ const TodoPage = () => {
               key={data.id}
               index={index}
               data={data}
+              setTodoItems={setTodoItems}
               handleCheckboxChange={handleCheckboxChange}
               deleteTodoItemButonClick={deleteTodoItemButonClick}
             />

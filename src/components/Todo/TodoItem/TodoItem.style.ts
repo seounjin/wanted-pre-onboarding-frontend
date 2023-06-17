@@ -17,7 +17,7 @@ export const Label = styled.label``;
 
 export const Span = styled.span``;
 
-export const Input = styled.input`
+export const CheckBox = styled.input`
     margin-right:10px;
     accent-color: #9ED5C5;
     transform : scale(1.5);
@@ -40,4 +40,11 @@ export const Button = styled.button`
         cursor: auto;
         opacity: 1.0;
       }
+`;
+
+export const Input = styled.input`
+    width: 280px;  
+    height: 34px;
+    font-size: 18px;
+
 `;

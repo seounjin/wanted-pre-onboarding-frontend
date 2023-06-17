@@ -15,3 +15,7 @@ export const createTodoItem = async (todoItem: string) => {
 export const deleteTodoItem = async (id: number) => {
     return await axiosClient.delete(`/todos/${id}`);
 };
+
+export const updateTodoItem = async (id: number, todo: string, isCompleted: boolean) => {
+    return await axiosClient.put(`/todos/${id}`, { todo, isCompleted });
+};
